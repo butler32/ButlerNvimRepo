@@ -3,17 +3,17 @@ return {
     "williamboman/mason.nvim",
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim", -- Добавили сюда
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      -- 1. PRE-REQUISITE: Add Mason's bin folder to Neovim's PATH 
-      -- This fixes the "Spawning language server failed" error
+      -- 1. PATH Setup
       local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
       if not string.find(vim.env.PATH, mason_bin) then
         vim.env.PATH = mason_bin .. (vim.fn.has("win32") == 1 and ";" or ":") .. vim.env.PATH
       end
 
-      -- 2. Mason Core Setup
+      -- 2. Mason Core
       require("mason").setup({
         registries = {
           "github:mason-org/mason-registry",
@@ -21,24 +21,32 @@ return {
         },
       })
 
-      -- 3. Mason-LSPConfig (Ensures binaries are downloaded)
+      -- 3. LSP Config
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls", "ts_ls", "cssls", "html", "dockerls", "jsonls", "lemminx"
         },
       })
 
-      -- 4. NEW: Native Neovim 0.11 LSP Setup
-      -- We no longer require('lspconfig'). We use the native vim.lsp.enable
+      -- 4. Tool Installer (тот самый блок, который вызвал ошибку)
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "csharpier",
+          "prettier",
+          "stylua",
+          "netcoredbg",
+        },
+        auto_update = true,
+        run_on_start = true,
+      })
+
+      -- 5. Native LSP Setup (Neovim 0.11+)
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local servers = { "lua_ls", "ts_ls", "cssls", "html", "dockerls", "jsonls", "lemminx" }
 
       for _, server_name in ipairs(servers) do
-        -- This is the modern 0.11+ way to enable servers
-        -- It avoids the deprecated 'lspconfig' framework warning
         vim.lsp.enable(server_name, {
           capabilities = capabilities,
-          -- For lua_ls specific settings:
           settings = server_name == "lua_ls" and {
             Lua = {
               diagnostics = { globals = { "vim" } },
@@ -48,6 +56,7 @@ return {
         })
       end
 
+      -- 6. Diagnostics (иконки и оформление)
       local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌵 ", Info = "󰋽 " }
       for type, icon in pairs(signs) do
           local hl = "DiagnosticSign" .. type
@@ -57,7 +66,7 @@ return {
       vim.diagnostic.config({
           virtual_text = false,
           update_in_insert = false,
-          uderline = true,
+          underline = true,
           severity_sort = true,
           float = {
               focused = true,
