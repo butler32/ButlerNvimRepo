@@ -8,9 +8,21 @@ return {
     },
     config = function()
         require("neo-tree").setup({
+            sources = {
+                "filesystem",
+                "buffers",
+                "git_status",
+            },
+            source_selector = {
+                winbar = true,
+                statusline = false,
+            },
             window = {
                 mappings = {
                     ["<space>"] = "none",
+
+                    ["<tab>"] = "next_source",
+                    ["<s-tab>"] = "prev_source",
 
                     ["l"] = "open",
                     ["h"] = function(state)
@@ -50,5 +62,7 @@ return {
         })
 
         vim.keymap.set("n", "<leader>e", ":Neotree toggle reveal left<CR>", { desc = "Toggle Explorer" })
+        vim.keymap.set("n", "<leader>be", ":Neotree buffers reveal float<CR>", { desc = "Toggle Buffers" })
+        vim.keymap.set("n", "<leader>ge", ":Neotree git_status reveal left<CR>", { desc = "Toggle Git" })
     end,
 }
