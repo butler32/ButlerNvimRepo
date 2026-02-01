@@ -10,6 +10,8 @@ return {
         require("neo-tree").setup({
             window = {
                 mappings = {
+                    ["<space>"] = "none",
+
                     ["l"] = "open",
                     ["h"] = function(state)
                         local node = state.tree:get_node()
