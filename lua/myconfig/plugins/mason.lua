@@ -40,6 +40,7 @@ return {
 			-- 4. Tool Installer (тот самый блок, который вызвал ошибку)
 			require("mason-tool-installer").setup({
 				ensure_installed = {
+                    "roslyn",
 					"csharpier",
 					"prettier",
 					"stylua",
