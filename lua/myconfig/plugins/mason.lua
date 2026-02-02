@@ -31,6 +31,9 @@ return {
 					"dockerls",
 					"jsonls",
 					"lemminx",
+                    "clangd",
+                    "pyright",
+                    "rust_analyzer",
 				},
 			})
 
@@ -41,6 +44,8 @@ return {
 					"prettier",
 					"stylua",
 					"netcoredbg",
+                    "black",
+                    "codelldb",
 				},
 				auto_update = true,
 				run_on_start = true,
@@ -48,7 +53,7 @@ return {
 
 			-- 5. Native LSP Setup (Neovim 0.11+)
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local servers = { "lua_ls", "ts_ls", "cssls", "html", "dockerls", "jsonls", "lemminx" }
+			local servers = { "lua_ls", "ts_ls", "cssls", "html", "dockerls", "jsonls", "lemminx", "clangd", "pyright", "rust_analyzer" }
 
 			for _, server_name in ipairs(servers) do
 				vim.lsp.enable(server_name, {

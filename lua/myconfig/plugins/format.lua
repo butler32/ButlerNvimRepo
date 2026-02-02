@@ -19,6 +19,8 @@ return {
       javascript = { "prettierd", "prettier", stop_after_first = true },
       html = { "prettier" },
       css = { "prettier" },
+      python = { "black" },
+      rust = { "rustfmt" },
     },
     -- ВЫКЛЮЧАЕМ авто-формат при сохранении
     format_on_save = false, 
