@@ -11,10 +11,6 @@ return {
     require("roslyn").setup({
       dotnet_cmd = "dotnet", -- убедись, что dotnet в PATH
       
-      -- Версия сервера (Mason ставит её в свою папку bin)
-      -- Если не заработает автоматически, укажем прямой путь к dll
-      roslyn_version = "4.12.0-3.24474.15", 
-
       on_attach = function(client, bufnr)
         -- Твои бинды (как в Rider)
         local opts = { buffer = bufnr }
