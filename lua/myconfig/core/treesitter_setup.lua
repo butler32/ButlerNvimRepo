@@ -1,5 +1,5 @@
 -- Настройка компилятора
-require('nvim-treesitter.install').compilers = { "zig" }
+require('nvim-treesitter.install').compilers = { "gcc" }
 
 local configs = require("nvim-treesitter.configs")
 
