@@ -15,6 +15,11 @@ return {
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },
+      -- clang-format: часть LLVM, не устанавливается через Mason.
+      -- Если установлен системно (winget install LLVM.LLVM), будет найден в PATH.
+      -- Иначе форматирование идёт через clangd (lsp_fallback).
+      c = { "clang-format" },
+      cpp = { "clang-format" },
       cs = { "csharpier" },
       javascript = { "prettierd", "prettier", stop_after_first = true },
       html = { "prettier" },

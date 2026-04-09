@@ -19,3 +19,6 @@ keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save file" })
 keymap.set("i", "<C-s>", "<Esc>:w<CR>a", { desc = "Save file in insert mode" })
+
+keymap.set("n", "<C-d>", "yy p", { desc = "Duplicate current line" })
+keymap.set("i", "<C-d>", "<ESC>yy p i", { desc = "Duplicate current line" })

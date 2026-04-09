@@ -25,7 +25,31 @@ return {
       dapui.close()
     end
 
-    -- 1. Настройка адаптера для C# (NetCoreDbg)
+    -- 1. Настройка адаптера для C/C++ (codelldb)
+    dap.adapters.codelldb = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
+        args = { "--port", "${port}" },
+      },
+    }
+
+    dap.configurations.c = {
+      {
+        name = "Launch",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+      },
+    }
+    dap.configurations.cpp = dap.configurations.c
+
+    -- 2. Настройка адаптера для C# (NetCoreDbg)
     dap.adapters.coreclr = {
       type = "executable",
       command = vim.fn.stdpath("data") .. "/mason/bin/netcoredbg",

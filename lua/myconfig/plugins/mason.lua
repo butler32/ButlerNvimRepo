@@ -25,7 +25,7 @@ return {
       -- Сюда добавляем серверы языков
       local servers = { 
           "lua_ls", "ts_ls", "cssls", "html", "dockerls", "jsonls", "lemminx", 
-          "clangd", "pyright", "rust_analyzer", "gopls" -- gopls для Go
+          "clangd", "pyright", "rust_analyzer", "gopls", "angularls"
       }
 
       require("mason-lspconfig").setup({
@@ -42,8 +42,8 @@ return {
           "stylua",
           "netcoredbg", -- Debug C#
           "black",      -- Format Python
-          "codelldb",   -- Debug C++/Rust
-          "delve",      -- Debug Go
+          "codelldb", -- Debug C++/Rust
+          "delve",     -- Debug Go
         },
         auto_update = true,
         run_on_start = true,
